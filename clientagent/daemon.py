@@ -60,7 +60,11 @@ class Daemon:
 		# write pidfile
 		atexit.register(self.delpid)
 		pid = str(os.getpid())
-		file(self.pidfile,'w+').write("%s\n" % pid)
+		#pfd = open(self.pidfile,"rw")
+		#pfd.truncate()
+		#pfd.write("%s\n" % pid)
+		#file(self.pidfile,'w+').write("%s\n" % pid)
+		file(self.pidfile,'w').truncate()
 	
 	def delpid(self):
 		os.remove(self.pidfile)
@@ -70,17 +74,17 @@ class Daemon:
 		Start the daemon
 		"""
 		# Check for a pidfile to see if the daemon already runs
-		try:
-			pf = file(self.pidfile,'r')
-			pid = int(pf.read().strip())
-			pf.close()
-		except IOError:
-			pid = None
+		#try:
+		#	pf = file(self.pidfile,'r')
+		#	pid = int(pf.read().strip())
+		#	pf.close()
+		#except IOError:
+		#	pid = None
 	
-		if pid:
-			message = "pidfile %s already exist. Daemon already running?\n"
-			sys.stderr.write(message % self.pidfile)
-			sys.exit(1)
+		#if pid:
+		#	message = "pidfile %s already exist. Daemon already running?\n"
+		#	sys.stderr.write(message % self.pidfile)
+		#	sys.exit(1)
 		
 		# Start the daemon
 		self.daemonize()

@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# version 0.1 (2016.01.26)
+# version 0.2 (2016.06.09)
 
 # check args & files 
 
@@ -12,6 +12,7 @@ then
 fi
 
 SERVER=$1
+HOSTNAME=`hostname | cut -d. -f1`
 file1="/etc/rear/local.conf"
 file2="/usr/share/rear/conf/default.conf"
 file3="/opt/osbackup_client/ClientAgent.py"
@@ -61,3 +62,23 @@ echo "Success : update /opt/osbackup_client/ClientAgent.py"
 sed -i 's/^OUTPUT_PREFIX=.*/OUTPUT_PREFIX="$HOSTNAME"_`date +%y%m%d`/g' /usr/share/rear/conf/default.conf
 sed -i 's/^NETFS_PREFIX=.*/NETFS_PREFIX="$HOSTNAME"_`date +%y%m%d`/g' /usr/share/rear/conf/default.conf
 echo "Success : update /usr/share/rear/conf/default.conf"
+
+# run the client agent
+python /opt/osbackup_client/ClientAgent.py start
+RES=`echo $?`
+if [ $RES -ne 0 ]
+then
+    echo 'Error!!! - cannot run client agent'
+else
+    echo 'Success - run client agent'
+fi
+
+# register the client to osbackup server
+curl -H "Content-Type: application/json" -X POST -d "{\"name\":\"${HOSTNAME}\"}" http://${SERVER}:3000/register/
+RES=`echo $?`
+if [ $RES -ne 0 ]
+then
+    echo 'Error!!! - cannot register the client to osbackup server'
+else 
+    echo 'Success - register the client to osbackup server'
+fi
