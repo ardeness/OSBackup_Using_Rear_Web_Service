@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <meta charset="utf-8">
+    <title>Clone Linux</title>
+
+    <script src="/static/js/bower_components/jquery/dist/jquery.js"></script>
+    <script src="/static/js/bower_components/babel/browser-polyfill.js"></script>
+    <script src="/static/js/bower_components/babel/browser.js"></script>
+    <script src="/static/js/bower_components/react/react.js"></script>
+    <script src="/static/js/bower_components/react/react-dom.js"></script>
+
+    <!--semantic ui start-->
+    <link rel="stylesheet" type="text/css" href="/static/css/semantic.min.css" />
+    <script src="/static/css/semantic.min.js"></script>
+    <!--semantic ui end-->
+
+  </head>
+  <body> 
+    <div class="ui basic segment container" id="tbbutton">
+	<a id="top" />
+    	<!--top/bottom button start-->
+	<div class="ui right rail">
+		<div class="ui sticky">
+			<div class="ui vertical mini basic buttons">
+				<a href="#top"><button class="ui icon button" title="top"><i class="angle up icon"></i></button></a>
+				<a href="#bottom"><button class="ui icon button" title="bottom"><i class="angle down icon"></i></button></a>
+			</div>
+		</div>
+	</div>
+	<!--script>$('.ui.sticky').sticky({offset: 10, bottomOffset: 10, context: '#tbbutton'});</script-->
+    	<!--top/bottom button end-->
+	<div class="ui two column grid" style="margin-top:13px;">
+		<div class="column">
+			<h2 class="ui header">
+				<i class="copy icon"></i>
+				<div class="content">Clone Linux<div class="sub header">Linux OS-Backup service for CarCloud</div></div>
+			</h2>
+		</div>
+		<div class="column right aligned">
+			<a href="admin/logout/?next=/">
+			<div tabindex="0" class="ui tiny vertical animated button">
+				<div class="hidden content">Log-out</div>
+				<div class="visible content">
+				<i class="user small icon"></i>root
+				</div>
+			</div>
+			<!--<div class="ui small icon buttons">
+				<button class="ui button"><i class="sign out icon"></i></button>
+			</div>-->
+			</a>
+		</div>
+	</div>
+        <div id="react_content"></div>
+        <div class="ui basic segment right aligned"><p class="ui tag label">Cloud Group, BigData Technology Team</p></div>
+	<a id="bottom" />
+    </div>
+    <script type="text/babel" src="/static/js/osbackup.js"></script>
+    <script type="text/babel">
+      // To get started with this tutorial running your own code, simply remove
+      // the script tag loading scripts/example.js and start writing code here.
+    </script>
+  </body>
+</html>
